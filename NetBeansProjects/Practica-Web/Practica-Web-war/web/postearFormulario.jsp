@@ -5,7 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="pw.entity.Tusuario"%>
 <!DOCTYPE html>
+<%
+  Tusuario user = (Tusuario) request.getAttribute("usuario");
+%>
 <html>
     <head>
         <title>Postear</title>
@@ -13,6 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        Usuario: <%= user.getNombre() %> <br/>
         <form method="get" action="PostearServlet" name="formulario">
             Escriba aqu&iacute; su post... <br/>
             <textarea name="postear" rows="4" cols="20"/></textarea><br/>
