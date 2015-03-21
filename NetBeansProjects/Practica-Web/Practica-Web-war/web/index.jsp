@@ -5,5 +5,5 @@
 --%>
 
 <%  
-    response.sendRedirect("postear.html");
+    response.sendRedirect("postearFormulario.jsp");
 %>
