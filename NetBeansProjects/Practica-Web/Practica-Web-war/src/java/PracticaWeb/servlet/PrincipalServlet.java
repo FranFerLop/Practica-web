@@ -1,36 +1,29 @@
+package PracticaWeb.servlet;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PracticaWeb.servlet;
 
+import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import pw.entity.Tusuario;
-import pw.entity.Tpost;
-import pw.ejb.*;
-
+import pw.ejb.AbstractFacade;
 
 /**
  *
  * @author Sergio
  */
-@WebServlet(name = "PostearServlet", urlPatterns = {"/PostearServlet"})
-public class PostearServlet extends HttpServlet {
-    @EJB
-    private TusuarioFacade fachadaUsuario;
-    private TpostFacade fachadaPost;
-
+@WebServlet(name = "Principal",urlPatterns = {"/PrincipalServlet"})
+public class PrincipalServlet extends HttpServlet {
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,18 +35,11 @@ public class PostearServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
         HttpSession session = request.getSession();
-        //Preguntar al profesor, si "id" al pasarlo como parametro seguiria siendo un entero
-        String id_usuario = request.getParameter("id");
         
         
-        fachadaPost.insertarPostByIdUsuario(id_usuario, "postear", "imagen");
-        
-        RequestDispatcher rdp;
-        rdp = this.getServletContext().getRequestDispatcher("/postear.jsp");
-        rdp.forward(request, response);
-        
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/principal.jsp");
+        dispatcher.forward(request, response);	
         
     }
 
@@ -95,4 +81,5 @@ public class PostearServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }
