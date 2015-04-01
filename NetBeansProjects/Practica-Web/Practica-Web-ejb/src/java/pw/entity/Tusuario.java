@@ -14,6 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,6 +40,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tusuario.findByPassword", query = "SELECT t FROM Tusuario t WHERE t.password = :password"),
     @NamedQuery(name = "Tusuario.findByAdministrador", query = "SELECT t FROM Tusuario t WHERE t.administrador = :administrador")})
 public class Tusuario implements Serializable {
+    @JoinTable(name = "AMIGOS", joinColumns = {
+        @JoinColumn(name = "TUSUARIO_ID_USER", referencedColumnName = "ID_USER")}, inverseJoinColumns = {
+        @JoinColumn(name = "TUSUARIO_ID_USER1", referencedColumnName = "ID_USER")})
+    @ManyToMany
+    private Collection<Tusuario> tusuarioCollection;
+    @ManyToMany(mappedBy = "tusuarioCollection")
+    private Collection<Tusuario> tusuarioCollection1;
+    @JoinColumn(name = "TGRUPO_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Tgrupo tgrupoId;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -148,6 +160,32 @@ public class Tusuario implements Serializable {
     @Override
     public String toString() {
         return "pw.entity.Tusuario[ idUser=" + idUser + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Tusuario> getTusuarioCollection() {
+        return tusuarioCollection;
+    }
+
+    public void setTusuarioCollection(Collection<Tusuario> tusuarioCollection) {
+        this.tusuarioCollection = tusuarioCollection;
+    }
+
+    @XmlTransient
+    public Collection<Tusuario> getTusuarioCollection1() {
+        return tusuarioCollection1;
+    }
+
+    public void setTusuarioCollection1(Collection<Tusuario> tusuarioCollection1) {
+        this.tusuarioCollection1 = tusuarioCollection1;
+    }
+
+    public Tgrupo getTgrupoId() {
+        return tgrupoId;
+    }
+
+    public void setTgrupoId(Tgrupo tgrupoId) {
+        this.tgrupoId = tgrupoId;
     }
     
 }
