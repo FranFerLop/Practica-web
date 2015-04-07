@@ -13,6 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import pw.ejb.TusuarioFacade;
+import pw.entity.Tusuario;
 
 /**
  *
@@ -30,8 +33,17 @@ public class InvitarAmigoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    private TusuarioFacade usufachada;
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //HttpSession session = request.getSession();
+        //String nuevoAmigo = request.getParameter("nombre");
+        
+        //usufachada.insertarAmigoByNombre(session.getAttribute("usuario"), nuevoAmigo );
         
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pegote.jsp");
         dispatcher.forward(request, response);		

@@ -21,9 +21,9 @@
             <table>
                 <tbody>
                     <tr>
-                        <tr><h3>Indique el correo de tu amigo:</h3></tr>
+                        <tr><h3>Indique el nombre de tu amigo:</h3></tr>
                         <tr>
-                            <td><input type="text" name="correo" value=""/></td>
+                            <td><input type="text" name="nombre" value=""/></td>
                             <td><input type="submit" name="btEnviat" value="Invitar"</td>
                         </tr>
                     </tr>

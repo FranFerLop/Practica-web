@@ -29,5 +29,10 @@ public class TusuarioFacade extends AbstractFacade<Tusuario> {
     public TusuarioFacade() {
         super(Tusuario.class);
     }
+
+    public void insertarAmigoByNombre(Object attribute, String nuevoAmigo) {
+        
+        
+    }
     
 }
