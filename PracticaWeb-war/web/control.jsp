@@ -12,10 +12,9 @@
         <title>Control</title>
     </head>
     <body>
-      
+   
         <h1> Datos incorrectos</h1>
-        <a href="index.jsp"> VOLVER A LOGIN</a>
-        
+        <a href="index.jsp">Volver al login</a>
         
     </body>
 </html>

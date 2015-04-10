@@ -4,9 +4,11 @@
     Author     : Sergio
 --%>
 
+<%@page import="pw.entity.Tusuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+
 
 <html>
     <head>
@@ -15,7 +17,7 @@
     </head>
     <body>
         <img src=""/>
-        <h1>Usuario: nombre de usuario</h1>
+        <h1>Usuario: Nombre </h1>
         
         <a href="postearFormulario.jsp">Añadir post</a>
         
@@ -29,3 +31,4 @@
         
     </body>
 </html>
+X

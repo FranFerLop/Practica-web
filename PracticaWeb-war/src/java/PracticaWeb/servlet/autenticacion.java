@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import pw.ejb.TusuarioFacade;
 import pw.entity.Tusuario;
 
@@ -39,20 +40,28 @@ public class autenticacion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+//        HttpSession session = request.getSession();
+        
         String name = request.getParameter("user");
         String pass = request.getParameter("password");
         
-        Tusuario user = fachadaUsuario.findByNameAndPass(name, pass);
+        if (name == null || name.equalsIgnoreCase("") || pass ==null || pass.equalsIgnoreCase("")) {
         
-        if(user != null){
-             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/principal.jsp");
-             dispatcher.forward (request,response);
-        }else{
-             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/control.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/control.jsp");
             dispatcher.forward (request,response);
+        }else{
+            Tusuario user = fachadaUsuario.findByNameAndPass(name, pass);
+
+            if(user != null ){
+                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/principal.jsp");
+                 dispatcher.forward (request,response);
+            }else{
+                   RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/control.jsp");
+            dispatcher.forward (request,response);
+            }
+        
+        
         }
-        
-        
         
            
     }
