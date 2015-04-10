@@ -3,17 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Practica;
+package PracticaWeb.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pw.ejb.TusuarioFacade;
+import pw.entity.Tusuario;
 
 /**
  *
@@ -21,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "autenticacion", urlPatterns = {"/autenticacion"})
 public class autenticacion extends HttpServlet {
+    @EJB
+    private TusuarioFacade fachadaUsuario;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,8 +39,18 @@ public class autenticacion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/control.jsp");
-        dispatcher.forward (request,response);
+        String name = request.getParameter("user");
+        String pass = request.getParameter("password");
+        
+        Tusuario user = fachadaUsuario.findByNameAndPass(name, pass);
+        
+        if(user != null){
+             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/principal.jsp");
+             dispatcher.forward (request,response);
+        }else{
+             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/control.jsp");
+            dispatcher.forward (request,response);
+        }
         
         
         

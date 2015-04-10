@@ -12,20 +12,10 @@
         <title>Control</title>
     </head>
     <body>
-        <%
-        String user = request.getParameter("user"); 
-        String password = request.getParameter("password"); 
-        
-        if (user != null && !user.equalsIgnoreCase("") && password !=null && !password.equalsIgnoreCase("")) {
-        %>
-        <h1> Bienvenido <%=user%> </h1>
-        
-        <%
-        } else {
-        %>
+      
         <h1> Datos incorrectos</h1>
-        <%
-        }
-        %>
+        <a href="index.jsp"> VOLVER A LOGIN</a>
+        
+        
     </body>
 </html>

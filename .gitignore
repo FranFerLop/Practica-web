@@ -17,3 +17,6 @@
 /PracticaWeb-ejb/dist/
 /PracticaWeb-ejb/build/
 /PracticaWeb-war/build/
+/dist/
+/build/
+/PracticaWeb-war/dist/
