@@ -40,7 +40,7 @@ public class autenticacion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-//        HttpSession session = request.getSession();
+      HttpSession session = request.getSession();
         
         String name = request.getParameter("user");
         String pass = request.getParameter("password");
@@ -51,8 +51,10 @@ public class autenticacion extends HttpServlet {
             dispatcher.forward (request,response);
         }else{
             Tusuario user = fachadaUsuario.findByNameAndPass(name, pass);
+            
 
             if(user != null ){
+                session.setAttribute("user", user);
                  RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/principal.jsp");
                  dispatcher.forward (request,response);
             }else{

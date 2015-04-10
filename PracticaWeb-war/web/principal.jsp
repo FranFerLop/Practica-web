@@ -9,6 +9,18 @@
 
 <!DOCTYPE html>
 
+<%
+    Tusuario user;
+    user = (Tusuario)session.getAttribute("user");
+    if(user==null){
+%>        
+<jsp:forward page="control.jsp" />
+
+<%
+    }
+
+ %>
+
 
 <html>
     <head>
@@ -17,7 +29,7 @@
     </head>
     <body>
         <img src=""/>
-        <h1>Usuario: Nombre </h1>
+        <h1>Usuario: <%= user.getNombre() %> </h1>
         
         <a href="postearFormulario.jsp">Añadir post</a>
         
