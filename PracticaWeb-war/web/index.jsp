@@ -5,5 +5,5 @@
 --%>
 
 <%  
-    response.sendRedirect("PrincipalServlet");
+    response.sendRedirect("login.jsp");
 %>
