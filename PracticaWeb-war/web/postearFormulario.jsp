@@ -8,7 +8,7 @@
 <%@page import="pw.entity.Tusuario"%>
 <!DOCTYPE html>
 <%
-  Tusuario user = (Tusuario) session.getAttribute("usuario");
+  Tusuario user = (Tusuario) session.getAttribute("user");
 %>
 <html>
     <head>
@@ -21,7 +21,7 @@
         <form method="get" action="PostearServlet" name="formulario">
             Escriba aqu&iacute; su post... <br/>
             <textarea name="postear" rows="4" cols="20"/></textarea><br/>
-            <input type="file" name="imagen" value="" />
+            <input type="file" name="imagen" value="" /><br/>
             <input type="submit" value="Postear" name="submit" />
         </form>
     </body>

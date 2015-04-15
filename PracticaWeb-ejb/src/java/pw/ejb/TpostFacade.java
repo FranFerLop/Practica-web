@@ -6,13 +6,13 @@
 package pw.ejb;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pw.entity.Tpost;
-import pw.entity.Tusuario;
+import pw.entity.*;
 
 /**
  *
@@ -21,8 +21,7 @@ import pw.entity.Tusuario;
 @Stateless
 public class TpostFacade extends AbstractFacade<Tpost> {
     @PersistenceContext(unitName = "Practica-web-ejbPU")
-    private EntityManager em;
-    private int identificador=0;    
+    private EntityManager em;   
 
     @Override
     protected EntityManager getEntityManager() {
@@ -32,29 +31,32 @@ public class TpostFacade extends AbstractFacade<Tpost> {
     public TpostFacade() {
         super(Tpost.class);
     }
-    public void insertarPostByIdUsuario(String id_usuario,String texto,String imagen){
-        Query q;
-        Tusuario u;
-        q = em.createQuery("SELECT u FROM Tusuario u WHERE u.idUser = :ID"); 
-        q.setParameter("ID", id_usuario);
-        u = (Tusuario)q.getSingleResult();
+    public Tpost insertarPostByUsuario(Tusuario usuario,List<Tpost> lista,String texto,String imagen){
+        BigDecimal identificador;
         
-        Tpost p = new Tpost();
-        p.setId(BigDecimal.valueOf(identificador));
-        identificador++;
-        p.setIdUsuario(u);
+        if(lista.isEmpty()){
+            identificador = BigDecimal.valueOf(1);
+        }else{
+            identificador = BigDecimal.valueOf(lista.size()+1);
+        }
+        
+        Tpost p = new Tpost(identificador);
         p.setTexto(texto);
         p.setImagen(imagen);
+        p.setTusuarioIdUser(usuario);
         
+        em.persist(p);
+        
+        return p;
     }
     
-    public List<Tpost> findPostByIdUsuario(String id){
+    public List<Tpost> findListPostByIdUsuario(BigDecimal id){
         Query q;
         List<Tpost> listaPost;
         
-        q = em.createQuery("SELECT p FROM Tpost p WHERE p.idUsuario= :ID");
+        q = em.createQuery("SELECT p FROM Tpost p WHERE p.tusuarioIdUser.idUser = :ID");
         q.setParameter("ID", id);
-        listaPost = q.getResultList();
+        listaPost = (List<Tpost>)q.getResultList();
         
         return listaPost;
     }

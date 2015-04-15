@@ -50,16 +50,16 @@ public class autenticacion extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/control.jsp");
             dispatcher.forward (request,response);
         }else{
-            Tusuario user = fachadaUsuario.findByNameAndPass(name, pass);
+            Tusuario user = this.fachadaUsuario.findByNameAndPass(name, pass);
             
 
             if(user != null ){
                 session.setAttribute("user", user);
-                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/principal.jsp");
-                 dispatcher.forward (request,response);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/principal.jsp");
+                dispatcher.forward (request,response);
             }else{
-                   RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/control.jsp");
-            dispatcher.forward (request,response);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/control.jsp");
+                dispatcher.forward (request,response);
             }
         
         

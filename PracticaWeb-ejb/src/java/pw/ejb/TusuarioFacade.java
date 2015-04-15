@@ -6,6 +6,7 @@
 package pw.ejb;
 
 import java.time.Clock;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,6 +33,7 @@ public class TusuarioFacade extends AbstractFacade<Tusuario> {
     
     public Tusuario findByNameAndPass(String name,String pass){
         Query q;
+        List<Tusuario> lista;
         Tusuario user;
         
         System.out.println(name + " " + pass);
@@ -40,7 +42,12 @@ public class TusuarioFacade extends AbstractFacade<Tusuario> {
         q.setParameter("NAME", name);
         q.setParameter("PASS", pass);
         
-        user = (Tusuario)q.getSingleResult();
+        lista= (List<Tusuario>)q.getResultList();
+        if(!lista.isEmpty()){
+            user = lista.get(0);
+        }else{
+            user = null;
+        }
         return user;
         
     }

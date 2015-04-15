@@ -28,7 +28,6 @@ import pw.ejb.*;
 @WebServlet(name = "PostearServlet", urlPatterns = {"/PostearServlet"})
 public class PostearServlet extends HttpServlet {
     @EJB
-    private TusuarioFacade fachadaUsuario;
     private TpostFacade fachadaPost;
 
     /**
@@ -44,11 +43,18 @@ public class PostearServlet extends HttpServlet {
             throws ServletException, IOException {
        
         HttpSession session = request.getSession();
-        //Preguntar al profesor, si "id" al pasarlo como parametro seguiria siendo un entero
-        String id_usuario = request.getParameter("id");
         
+        String texto = request.getParameter("postear");
+        String imagen = request.getParameter("imagen");
         
-        fachadaPost.insertarPostByIdUsuario(id_usuario, "postear", "imagen");
+         
+        
+        Tusuario usuario = (Tusuario)session.getAttribute("user");
+        List<Tpost> lista = fachadaPost.findListPostByIdUsuario(usuario.getIdUser());
+        
+        Tpost p = fachadaPost.insertarPostByUsuario(usuario,lista, texto, imagen);
+        
+        session.setAttribute("post", p);
         
         RequestDispatcher rdp;
         rdp = this.getServletContext().getRequestDispatcher("/postear.jsp");

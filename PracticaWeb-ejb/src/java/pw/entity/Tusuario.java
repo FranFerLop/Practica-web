@@ -14,6 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Francisco
+ * @author Sergio
  */
 @Entity
 @Table(name = "TUSUARIO")
@@ -57,11 +59,18 @@ public class Tusuario implements Serializable {
     private String password;
     @Column(name = "ADMINISTRADOR")
     private Character administrador;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    @JoinTable(name = "AMIGOS", joinColumns = {
+        @JoinColumn(name = "TUSUARIO_ID_USER", referencedColumnName = "ID_USER")}, inverseJoinColumns = {
+        @JoinColumn(name = "TUSUARIO_ID_USER1", referencedColumnName = "ID_USER")})
+    @ManyToMany
+    private List<Tusuario> tusuarioList;
+    @ManyToMany(mappedBy = "tusuarioList")
+    private List<Tusuario> tusuarioList1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tusuarioIdUser")
     private List<Tpost> tpostList;
-    @JoinColumn(name = "ID_GRUPO", referencedColumnName = "ID")
+    @JoinColumn(name = "TGRUPO_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Tgrupo idGrupo;
+    private Tgrupo tgrupoId;
 
     public Tusuario() {
     }
@@ -109,6 +118,24 @@ public class Tusuario implements Serializable {
     }
 
     @XmlTransient
+    public List<Tusuario> getTusuarioList() {
+        return tusuarioList;
+    }
+
+    public void setTusuarioList(List<Tusuario> tusuarioList) {
+        this.tusuarioList = tusuarioList;
+    }
+
+    @XmlTransient
+    public List<Tusuario> getTusuarioList1() {
+        return tusuarioList1;
+    }
+
+    public void setTusuarioList1(List<Tusuario> tusuarioList1) {
+        this.tusuarioList1 = tusuarioList1;
+    }
+
+    @XmlTransient
     public List<Tpost> getTpostList() {
         return tpostList;
     }
@@ -117,12 +144,12 @@ public class Tusuario implements Serializable {
         this.tpostList = tpostList;
     }
 
-    public Tgrupo getIdGrupo() {
-        return idGrupo;
+    public Tgrupo getTgrupoId() {
+        return tgrupoId;
     }
 
-    public void setIdGrupo(Tgrupo idGrupo) {
-        this.idGrupo = idGrupo;
+    public void setTgrupoId(Tgrupo tgrupoId) {
+        this.tgrupoId = tgrupoId;
     }
 
     @Override

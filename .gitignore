@@ -20,3 +20,4 @@
 /dist/
 /build/
 /PracticaWeb-war/dist/
+/PracticaWeb-ejb/setup/glassfish-resources.xml

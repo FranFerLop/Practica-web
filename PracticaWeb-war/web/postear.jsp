@@ -4,6 +4,7 @@
     Author     : Sergio
 --%>
 
+<%@page import="pw.entity.Tusuario"%>
 <%@page import="java.util.List"%>
 <%@page import="pw.entity.Tpost"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -11,8 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    //preguntar al profesor si el post pasado por parametro en postearFormulario se sigue manteniendo
-    String post = request.getParameter("postear");
+    Tpost p = (Tpost)session.getAttribute("post");
 %>
 
 <html>
@@ -24,7 +24,7 @@
     <body>
         <h1>Ha guardado el siguiente post: </h1><br/>
         
-        <h2><%=post%></h2><br/>
-        <a href="principal.jsp"></a>
+        <h2><%= p.getTexto() %></h2><br/>
+        <a href="principal.jsp">Volver a la página principal</a>
     </body>
 </html>

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Francisco
+ * @author Sergio
  */
 @Entity
 @Table(name = "TPOST")
@@ -46,9 +46,9 @@ public class Tpost implements Serializable {
     @Size(max = 50)
     @Column(name = "IMAGEN")
     private String imagen;
-    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USER")
+    @JoinColumn(name = "TUSUARIO_ID_USER", referencedColumnName = "ID_USER")
     @ManyToOne(optional = false)
-    private Tusuario idUsuario;
+    private Tusuario tusuarioIdUser;
 
     public Tpost() {
     }
@@ -81,12 +81,12 @@ public class Tpost implements Serializable {
         this.imagen = imagen;
     }
 
-    public Tusuario getIdUsuario() {
-        return idUsuario;
+    public Tusuario getTusuarioIdUser() {
+        return tusuarioIdUser;
     }
 
-    public void setIdUsuario(Tusuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setTusuarioIdUser(Tusuario tusuarioIdUser) {
+        this.tusuarioIdUser = tusuarioIdUser;
     }
 
     @Override
