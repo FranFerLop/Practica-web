@@ -41,7 +41,7 @@ public class TusuarioFacade extends AbstractFacade<Tusuario> {
         q = em.createQuery("SELECT u FROM Tusuario u WHERE u.nombre = :NAME AND u.password = :PASS");
         q.setParameter("NAME", name);
         q.setParameter("PASS", pass);
-        
+       
         lista= (List<Tusuario>)q.getResultList();
         if(!lista.isEmpty()){
             user = lista.get(0);
@@ -64,6 +64,14 @@ public class TusuarioFacade extends AbstractFacade<Tusuario> {
         }
         
         return lista;
+    }
+
+    public Tusuario findByName(String parameter) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void insertarAmigoByNombre(Tusuario usuario, Tusuario nuevoAmigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

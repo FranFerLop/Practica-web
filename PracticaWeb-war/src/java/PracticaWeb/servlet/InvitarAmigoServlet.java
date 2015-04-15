@@ -7,6 +7,7 @@ package PracticaWeb.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,17 +34,22 @@ public class InvitarAmigoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
+    @EJB
     private TusuarioFacade usufachada;
-    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        //HttpSession session = request.getSession();
-        //String nuevoAmigo = request.getParameter("nombre");
+        HttpSession session = request.getSession();
         
-        //usufachada.insertarAmigoByNombre(session.getAttribute("usuario"), nuevoAmigo );
+        Tusuario usuario = (Tusuario)session.getAttribute("user");
+        
+        //Completar estos metodos en TusuarioFacade
+        Tusuario nuevoAmigo = usufachada.findByName(request.getParameter("nombre"));
+        usufachada.insertarAmigoByNombre(usuario, nuevoAmigo );
+        //Completar los métodos de arriba en TusuarioFacade
+        
+        
         
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pegote.jsp");
         dispatcher.forward(request, response);		
