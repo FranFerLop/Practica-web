@@ -52,4 +52,18 @@ public class TusuarioFacade extends AbstractFacade<Tusuario> {
         
     }
     
+    public List<Tusuario> findAllName(){
+        Query q;
+        List<Tusuario> lista;
+        
+        q = em.createQuery("SELECT u FROM Tusuario u");
+        lista =(List<Tusuario>)q.getResultList();
+        
+        if(lista.isEmpty()){
+            lista = null;
+        }
+        
+        return lista;
+    }
+    
 }

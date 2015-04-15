@@ -29,17 +29,30 @@
     </head>
     <body>
         <img src=""/>
-        <h1>Usuario: <%= user.getNombre() %> </h1>
+        <h1>Usuario: <%= user.getNombre() %> </h1><br/>
         
-        <a href="postearFormulario.jsp">Añadir post</a>
+<%
+        if(user.getAdministrador().equals('1')){
+%>
+        <h2>Este usuario es administrador</h2><br/>
+        <form name="listarUsuario" action ="MostrarUsuariosRed" method ="post">
+            <input type="submit" value="Lista usuarios de la Red Social" />
+        </form>
+<%
+        }       
+%>
+        <form name="anadirPost" action ="AnadirPostServlet" method ="post">
+            <input type="submit" value="Anadir post" />
+        </form>
+        <a href="postearFormulario.jsp">Añadir post</a><br/>
         
-        <a href="muroPost.jsp">Lista de post</a>
+        <a href="muroPost.jsp">Lista de post</a><br/>
         
         <input type="submit" value="Añadir amigo" name="add_amigo" /> <br/>
         
-        <input type="submit" value="Eliminar amigo" name="delete_amigo"/>
+        <input type="submit" value="Eliminar amigo" name="delete_amigo"/><br/>
         
-        <input type="submit" value="Grupos" name="grupos"/>
+        <input type="submit" value="Grupos" name="grupos"/><br/>
         
     </body>
 </html>
