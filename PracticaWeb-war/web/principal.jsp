@@ -42,9 +42,8 @@
         }       
 %>
         <form name="anadirPost" action ="AnadirPostServlet" method ="post">
-            <input type="submit" value="Anadir post" />
+            <input type="submit" value="Añadir post" />
         </form>
-        <a href="postearFormulario.jsp">Añadir post</a><br/>
         
         <a href="muroPost.jsp">Lista de post</a><br/>
         
