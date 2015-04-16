@@ -66,12 +66,21 @@ public class TusuarioFacade extends AbstractFacade<Tusuario> {
         return lista;
     }
 
-    public Tusuario findByName(String parameter) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Tusuario findByName(String nombre) {
+        Query q;
+        List<Tusuario> u ;
+        
+        q = em.createQuery("SELECT u FROM Tusuario u WHERE u.nombre = :NOM");
+        q.setParameter("NOM", nombre);
+        
+        u=(List<Tusuario>)q.getResultList();
+        
+        return u.get(0);
     }
 
     public void insertarAmigoByNombre(Tusuario usuario, Tusuario nuevoAmigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        
     }
     
 }
