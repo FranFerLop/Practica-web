@@ -41,7 +41,7 @@
 <%
         }       
 %>
-        <form name="anadirPost" action ="AnadirPostServlet" method ="post">
+        <form name="anadirPost" action ="postearFormulario.jsp" method ="post">
             <input type="submit" value="Añadir post" />
         </form>
         
