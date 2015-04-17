@@ -9,11 +9,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -21,7 +18,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,12 +36,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tusuario.findByIdUser", query = "SELECT t FROM Tusuario t WHERE t.idUser = :idUser"),
     @NamedQuery(name = "Tusuario.findByNombre", query = "SELECT t FROM Tusuario t WHERE t.nombre = :nombre"),
     @NamedQuery(name = "Tusuario.findByPassword", query = "SELECT t FROM Tusuario t WHERE t.password = :password"),
-    @NamedQuery(name = "Tusuario.findByAdministrador", query = "SELECT t FROM Tusuario t WHERE t.administrador = :administrador")})
+    @NamedQuery(name = "Tusuario.findByAdministrador", query = "SELECT t FROM Tusuario t WHERE t.administrador = :administrador"),
+    @NamedQuery(name = "Tusuario.findByBloqueado", query = "SELECT t FROM Tusuario t WHERE t.bloqueado = :bloqueado")})
 public class Tusuario implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    //@GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_USER")
@@ -62,6 +58,8 @@ public class Tusuario implements Serializable {
     private String password;
     @Column(name = "ADMINISTRADOR")
     private Character administrador;
+    @Column(name = "BLOQUEADO")
+    private Character bloqueado;
     @JoinTable(name = "AMIGOS", joinColumns = {
         @JoinColumn(name = "TUSUARIO_ID_USER", referencedColumnName = "ID_USER")}, inverseJoinColumns = {
         @JoinColumn(name = "TUSUARIO_ID_USER1", referencedColumnName = "ID_USER")})
@@ -69,8 +67,6 @@ public class Tusuario implements Serializable {
     private List<Tusuario> tusuarioList;
     @ManyToMany(mappedBy = "tusuarioList")
     private List<Tusuario> tusuarioList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tusuarioIdUser")
-    private List<Tpost> tpostList;
     @JoinColumn(name = "TGRUPO_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Tgrupo tgrupoId;
@@ -120,6 +116,14 @@ public class Tusuario implements Serializable {
         this.administrador = administrador;
     }
 
+    public Character getBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(Character bloqueado) {
+        this.bloqueado = bloqueado;
+    }
+
     @XmlTransient
     public List<Tusuario> getTusuarioList() {
         return tusuarioList;
@@ -136,15 +140,6 @@ public class Tusuario implements Serializable {
 
     public void setTusuarioList1(List<Tusuario> tusuarioList1) {
         this.tusuarioList1 = tusuarioList1;
-    }
-
-    @XmlTransient
-    public List<Tpost> getTpostList() {
-        return tpostList;
-    }
-
-    public void setTpostList(List<Tpost> tpostList) {
-        this.tpostList = tpostList;
     }
 
     public Tgrupo getTgrupoId() {

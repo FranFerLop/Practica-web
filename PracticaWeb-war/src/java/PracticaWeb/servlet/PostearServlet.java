@@ -50,7 +50,7 @@ public class PostearServlet extends HttpServlet {
          
         
         Tusuario usuario = (Tusuario)session.getAttribute("user");
-        List<Tpost> lista = fachadaPost.findListPostByIdUsuario(usuario.getIdUser());
+        List<Tpost> lista = fachadaPost.findAll();
         
         Tpost p = fachadaPost.insertarPostByUsuario(usuario,lista, texto, imagen);
         
