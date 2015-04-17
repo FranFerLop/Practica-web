@@ -32,15 +32,8 @@ public class TpostFacade extends AbstractFacade<Tpost> {
         super(Tpost.class);
     }
     public Tpost insertarPostByUsuario(Tusuario usuario,List<Tpost> lista,String texto,String imagen){
-        BigDecimal identificador;
         
-        if(lista.isEmpty()){
-            identificador = BigDecimal.valueOf(1);
-        }else{
-            identificador = BigDecimal.valueOf(lista.size()+1);
-        }
-        
-        Tpost p = new Tpost(identificador);
+        Tpost p = new Tpost();
         p.setTexto(texto);
         p.setImagen(imagen);
         p.setTusuarioIdUser(usuario);
